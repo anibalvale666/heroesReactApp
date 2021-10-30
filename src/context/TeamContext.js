@@ -5,6 +5,10 @@ export const TeamContext = createContext();
 
 export const TeamProvider = ({ children }) => {
     const [team, setTeam] = useState([]);
+    const [appearanceTeam, setAppearanceTeam] = useState({
+        weight: 0,
+        height: 0,
+    })
     const [powerStats, setPowerStats] = useState({
         intelligence: 0,
         strength: 0,
@@ -19,7 +23,9 @@ export const TeamProvider = ({ children }) => {
             team,
             setTeam,
             powerStats,
-            setPowerStats
+            setPowerStats,
+            appearanceTeam, 
+            setAppearanceTeam
         }}
         >
             {children}

@@ -1,20 +1,28 @@
 import React, { useContext } from 'react';
-
+import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { TeamContext } from '../../context/TeamContext'
+import { TeamContext } from '../../context/TeamContext';
 
 
-export const HeroeItem = ( {
+
+export const HeroCard = ( {
     id,
     name,
     powerstats,
     biography,
     image,
     appearance,
+    work,
     isTeam,
 }) => {
 
-    const {team, setTeam, powerStats, setPowerStats} = useContext(TeamContext);
+    const {team, setTeam, powerStats, setPowerStats, appearanceTeam, setAppearanceTeam} = useContext(TeamContext);
+
+    const {intelligence,strength,speed, durability, power, combat } = powerstats;
+
+    // const {weight, height } = appearance;
+    const w = parseInt(appearance.weight[1].substring(0,appearance.weight[1].length -3));
+    const h = parseInt(appearance.height[1].substring(0,appearance.height[1].length -3));
 
     const addHero = () => {
         if( team.length >= 6) {
@@ -43,29 +51,36 @@ export const HeroeItem = ( {
             });
 
         }
-        setTeam([...team, {id,name,powerstats,biography, image, appearance}]);
+        setTeam([...team, {id,name,powerstats,biography, image, appearance, work}]);
         setPowerStats ({
-            intelligence: powerStats.intelligence + parseInt(powerstats.intelligence),
-            strength: powerStats.strength + parseInt(powerstats.strength),
-            speed: powerStats.speed + parseInt(powerstats.speed),
-            durability: powerStats.durability + parseInt(powerstats.durability),
-            power: powerStats.power + parseInt(powerstats.power),
-            combat: powerStats.combat + parseInt(powerstats.combat),
+            intelligence: powerStats.intelligence + ((intelligence !== 'null') ? parseInt(intelligence): 0),
+            strength: powerStats.strength + ((strength !== 'null') ? parseInt(strength): 0),
+            speed: powerStats.speed + ((speed !== 'null') ? parseInt(speed): 0),
+            durability: powerStats.durability + ((durability !== 'null') ? parseInt(durability): 0),
+            power: powerStats.power + ((power !== 'null') ? parseInt(power): 0),
+            combat: powerStats.combat + ((combat !== 'null') ? parseInt(combat): 0),
         });
-
+        setAppearanceTeam({
+            weight: appearanceTeam.weight + w,
+            height: appearanceTeam.height + h
+        })
     }
 
     const dropHero = () => {
         
         setTeam(team.filter( hero => id !== hero.id));
         setPowerStats ({
-            intelligence: powerStats.intelligence - parseInt(powerstats.intelligence),
-            strength: powerStats.strength - parseInt(powerstats.strength),
-            speed: powerStats.speed - parseInt(powerstats.speed),
-            durability: powerStats.durability - parseInt(powerstats.durability),
-            power: powerStats.power - parseInt(powerstats.power),
-            combat: powerStats.combat - parseInt(powerstats.combat),
+            intelligence: powerStats.intelligence - ((intelligence !== 'null') ? parseInt(intelligence) : 0),
+            strength: powerStats.strength - ((strength !== 'null') ? parseInt(strength) : 0),
+            speed: powerStats.speed - ((speed !== 'null') ? parseInt(speed) : 0),
+            durability: powerStats.durability - ((durability !== 'null') ? parseInt(durability) : 0),
+            power: powerStats.power - ((power !== 'null') ? parseInt(power) : 0),
+            combat: powerStats.combat - ((combat !== 'null') ? parseInt(combat) : 0),
         });
+        setAppearanceTeam({
+            weight: appearanceTeam.weight - w,
+            height: appearanceTeam.height - h
+        })
     }
     
     return (    
@@ -79,12 +94,12 @@ export const HeroeItem = ( {
                         <h5 className="card-title"> { name } <small className="text-muted"> {biography["full-name"]} </small> </h5>
 
                         <ul style={{fontSize: '11px', listStyle:'none'}}>
-                            <li>intelligence:   {powerstats.intelligence}</li>
-                            <li>strength:       {powerstats.strength}</li>
-                            <li>speed:          {powerstats.speed}</li>
-                            <li>durability:     {powerstats.durability}</li>
-                            <li>power:          {powerstats.power}</li>
-                            <li>combat:         {powerstats.combat}</li>
+                            <li>intelligence:   {intelligence}</li>
+                            <li>strength:       {strength}</li>
+                            <li>speed:          {speed}</li>
+                            <li>durability:     {durability}</li>
+                            <li>power:          {power}</li>
+                            <li>combat:         {combat}</li>
                         </ul>
                         {
                             isTeam 
@@ -102,6 +117,14 @@ export const HeroeItem = ( {
                             (biography.alignment === "good") 
                                 ? <span className="badge bg-success" style={{float: "right"}}> {biography.alignment} </span>
                                 : <span className="badge bg-danger " style={{float: "right"}}> {biography.alignment} </span>
+                        }
+                        
+                        <hr />
+                        {
+                            isTeam && 
+                                <Link to={`./hero/${id}`}>
+                                    More...
+                                </Link>
                         }
                     </div>
                 </div>

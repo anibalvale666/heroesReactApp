@@ -2,7 +2,7 @@ import React, {  useContext, useState } from 'react';
 import axios from 'axios';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 
-import { HeroeItem } from '../home/HeroeItem';
+import { HeroCard } from '../home/HeroCard';
 import { TeamContext } from '../../context/TeamContext';
 
 export const SearchScreen = () => {
@@ -44,7 +44,7 @@ export const SearchScreen = () => {
                         <Field id="buscar" type="text" name="hero_search" />
                         <ErrorMessage name="hero_search" component="div" />
 
-                        <button className="btn m-1 btn-block btn-outline-primary" type="submit" disabled={isSubmitting}>
+                        <button className="btn m-1 btn-outline-primary" type="submit" disabled={isSubmitting}>
                             Buscar
                         </button>
                     </Form>
@@ -57,7 +57,7 @@ export const SearchScreen = () => {
                 {
                     heroSearchList.map( hero => (
                         (!team.some(el => el.id === hero.id)) && 
-                        <HeroeItem 
+                        <HeroCard 
                             key={hero.id}
                             isTeam={false}
                             { ...hero }

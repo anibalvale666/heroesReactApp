@@ -11,6 +11,7 @@ import { Navbar } from '../components/navBar/Navbar';
 import { SearchScreen } from '../components/search/SearchScreen';
 import { PrivateRoute } from './PrivateRoute';
 import { PublicRoute } from './PublicRoute';
+import { HeroScreen } from '../components/home/HeroScreen';
 
 export const AppRouter = () => {
 
@@ -23,7 +24,6 @@ export const AppRouter = () => {
             <Router>
                 <div>
                     <Navbar />
-
                 </div>
                 <div>
                     <Switch>
@@ -45,6 +45,12 @@ export const AppRouter = () => {
                             component={SearchScreen}
                             isAuthenticated = {!!token}    
                         />
+                        <PrivateRoute 
+                            exact 
+                            path="/hero/:heroeId" 
+                            component={HeroScreen}
+                            isAuthenticated = {!!token}  
+                        />                
                         <Redirect to="/" />
                     </Switch>
                 </div>

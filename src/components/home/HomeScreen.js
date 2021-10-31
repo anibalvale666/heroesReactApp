@@ -11,7 +11,7 @@ export const HomeScreen = () => {
 
     const powerStats_2 =  Object.entries(powerStats).filter( k => k[0] !== maximun );
     return (
-        <div className="container mt-3">
+        <div className="container mt-3 animate__animated animate__fadeIn">
             {
                 (team.length === 0) 
                 ? 
@@ -33,7 +33,7 @@ export const HomeScreen = () => {
                                     ))
                                 }
                             </div>
-                            <div className="col">
+                            <div className="col animate__animated animate__fadeInRight">
                                 <h1>Global Powerstats</h1>
                                 {
                                     (!!team.length ) && (

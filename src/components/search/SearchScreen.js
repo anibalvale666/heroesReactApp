@@ -11,7 +11,7 @@ export const SearchScreen = () => {
 
     const {team} = useContext(TeamContext);
     return (
-        <div className="container mt-3">
+        <div className="container mt-3 animate__animated animate__fadeIn">
             <h1>Search</h1>
             <hr />
 

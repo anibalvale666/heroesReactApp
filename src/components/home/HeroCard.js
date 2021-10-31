@@ -20,7 +20,8 @@ export const HeroCard = ( {
 
     const {intelligence,strength,speed, durability, power, combat } = powerstats;
 
-    // const {weight, height } = appearance;
+  
+    // drop ' kg'  &  ' cm' in str
     const w = parseInt(appearance.weight[1].substring(0,appearance.weight[1].length -3));
     const h = parseInt(appearance.height[1].substring(0,appearance.height[1].length -3));
 

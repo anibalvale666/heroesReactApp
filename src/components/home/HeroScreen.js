@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useParams, Redirect } from 'react-router-dom';
 import { TeamContext } from '../../context/TeamContext';
-
+import 'animate.css';
 
 
 
@@ -35,7 +35,7 @@ export const HeroScreen = ({ history }) => {
     } = hero;
     
     return (
-        <div className="row mt-5">
+        <div className="row m-5 ">
             <div className="col-4">
                 <img 
                     src={ image.url }
